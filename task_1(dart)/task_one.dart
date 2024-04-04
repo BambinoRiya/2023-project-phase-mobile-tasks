@@ -28,7 +28,7 @@ class TaskManager{
   void viewCompleted(task_list){
       for (Task task in task_list){
         if (task.status == true){
-          print(task.title)
+          print(task.title);
         }
       }
     }
@@ -36,21 +36,21 @@ class TaskManager{
   void viewPending(task_list){
     for (Task task in task_list){
       if (task.status == false){
-        print(task.title)
+        print(task.title);
       }
     }
 
   }
 
-  void delTask(int index, task_list){
-    if (0<= int index <= task_list.length){
+  void delTask(int index){
+    if (index >-1 && index <= task_list.length){
       task_list.removeAt(index);
     }
 
   }
 
   void editTask(int index, String? title, String? description, DateTime? dueDate,bool? status){
-    if (0<= int index <= task_list.length){
+    if (index >-1 && index <= task_list.length){
       if (title != null) task_list[index].title = title;
       if (description!=null) task_list[index].description = description;
       if (status !=null) task_list[index].status = status;
@@ -101,6 +101,9 @@ void main() {
   print("\nAll Tasks After Deletion:");
   numberOne.viewAll();
 }
+
+
+
 // import 'dart:io';
 
 // void main() {
