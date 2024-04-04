@@ -62,7 +62,6 @@ void main() {
   // Create a TaskManager instance
   TaskManager numberOne = TaskManager();
 
-  // Create some test tasks
   Task task1 =
       Task("Task 1", "Description for Task 1", DateTime(2024, 4, 10), false);
   Task task2 =
@@ -70,35 +69,27 @@ void main() {
   Task task3 =
       Task("Task 3", "Description for Task 3", DateTime(2024, 4, 20), false);
 
-  // Add tasks to the task list
   numberOne.addTask(task1);
   numberOne.addTask(task2);
   numberOne.addTask(task3);
 
-  // View all tasks
   print("All Tasks:");
   numberOne.viewAll();
 
-  // View only completed tasks
   print("\nCompleted Tasks:");
   numberOne.viewCompleted(numberOne.taskList);
 
-  // View only pending tasks
   print("\nPending Tasks:");
   numberOne.viewPending(numberOne.taskList);
 
-  // Edit a task
   numberOne.editTask(1, "Updated Task 2", "Updated description for Task 2",
       DateTime(2024, 4, 18), true);
 
-  // View all tasks after editing
   print("\nAll Tasks After Editing:");
   numberOne.viewAll();
 
-  // Delete a task
   numberOne.delTask(0);
 
-  // View all tasks after deletion
   print("\nAll Tasks After Deletion:");
   numberOne.viewAll();
 }
