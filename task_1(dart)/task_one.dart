@@ -1,74 +1,74 @@
-class Task{
+class Task {
   String? title;
   String? description;
   DateTime? dueDate;
   bool? status;
 
-
-  Task(String? tit, String? desc, DateTime? due, bool? stats){
+  Task(String? tit, String? desc, DateTime? due, bool? stats) {
     title = tit;
     description = desc;
     dueDate = due;
     status = stats;
-
-  }}
-
-class TaskManager{
-  List<Task> task_list = [];
-  void addTask(Task task){
-    task_list.add(task);
-  }
-
-  void viewAll(){
-    for (Task task in task_list){
-      print("Title: ${task.title}, Description: ${task.description}, Due Date: ${task.dueDate}, Completed: ${task.status}");
-    }
-  }
-
-  void viewCompleted(task_list){
-      for (Task task in task_list){
-        if (task.status == true){
-          print(task.title);
-        }
-      }
-    }
-
-  void viewPending(task_list){
-    for (Task task in task_list){
-      if (task.status == false){
-        print(task.title);
-      }
-    }
-
-  }
-
-  void delTask(int index){
-    if (index >-1 && index <= task_list.length){
-      task_list.removeAt(index);
-    }
-
-  }
-
-  void editTask(int index, String? title, String? description, DateTime? dueDate,bool? status){
-    if (index >-1 && index <= task_list.length){
-      if (title != null) task_list[index].title = title;
-      if (description!=null) task_list[index].description = description;
-      if (status !=null) task_list[index].status = status;
-      if (dueDate != null)task_list[index].dueDate = dueDate;
-    }
-
   }
 }
 
+class TaskManager {
+  List<Task> taskList = [];
+  void addTask(Task task) {
+    taskList.add(task);
+  }
+
+  void viewAll() {
+    for (Task task in taskList) {
+      print(
+          "Title: ${task.title}, Description: ${task.description}, Due Date: ${task.dueDate}, Completed: ${task.status}");
+    }
+  }
+
+  void viewCompleted(taskList) {
+    for (Task task in taskList) {
+      if (task.status == true) {
+        print(task.title);
+      }
+    }
+  }
+
+  void viewPending(taskList) {
+    for (Task task in taskList) {
+      if (task.status == false) {
+        print(task.title);
+      }
+    }
+  }
+
+  void delTask(int index) {
+    if (index > -1 && index <= taskList.length) {
+      taskList.removeAt(index);
+    }
+  }
+
+  void editTask(int index, String? title, String? description,
+      DateTime? dueDate, bool? status) {
+    if (index > -1 && index <= taskList.length) {
+      if (title != null) taskList[index].title = title;
+      if (description != null) taskList[index].description = description;
+      if (status != null) taskList[index].status = status;
+      if (dueDate != null) taskList[index].dueDate = dueDate;
+    }
+  }
+}
 
 void main() {
   // Create a TaskManager instance
   TaskManager numberOne = TaskManager();
 
   // Create some test tasks
-  Task task1 = Task("Task 1", "Description for Task 1", DateTime(2024, 4, 10), false);
-  Task task2 = Task("Task 2", "Description for Task 2", DateTime(2024, 4, 15), true);
-  Task task3 = Task("Task 3", "Description for Task 3", DateTime(2024, 4, 20), false);
+  Task task1 =
+      Task("Task 1", "Description for Task 1", DateTime(2024, 4, 10), false);
+  Task task2 =
+      Task("Task 2", "Description for Task 2", DateTime(2024, 4, 15), true);
+  Task task3 =
+      Task("Task 3", "Description for Task 3", DateTime(2024, 4, 20), false);
 
   // Add tasks to the task list
   numberOne.addTask(task1);
@@ -81,14 +81,15 @@ void main() {
 
   // View only completed tasks
   print("\nCompleted Tasks:");
-  numberOne.viewCompleted(numberOne.task_list);
+  numberOne.viewCompleted(numberOne.taskList);
 
   // View only pending tasks
   print("\nPending Tasks:");
-  numberOne.viewPending(numberOne.task_list);
+  numberOne.viewPending(numberOne.taskList);
 
   // Edit a task
-  numberOne.editTask(1, "Updated Task 2", "Updated description for Task 2", DateTime(2024, 4, 18), true);
+  numberOne.editTask(1, "Updated Task 2", "Updated description for Task 2",
+      DateTime(2024, 4, 18), true);
 
   // View all tasks after editing
   print("\nAll Tasks After Editing:");
