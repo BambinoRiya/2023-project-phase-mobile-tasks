@@ -4,8 +4,8 @@ class Task {
   DateTime? dueDate;
   bool? status;
 
-  Task(String? tit, String? desc, DateTime? due, bool? stats) {
-    title = tit;
+  Task(String? title, String? desc, DateTime? due, bool? stats) {
+    title = title;
     description = desc;
     dueDate = due;
     status = stats;
