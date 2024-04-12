@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onboarding/home.dart';
 
 import 'package:onboarding/add_task.dart';
+import 'package:onboarding/task_details.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -31,7 +32,7 @@ class WelcomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CreateTaskPage()),
+                          builder: (context) => const TaskDetails()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
