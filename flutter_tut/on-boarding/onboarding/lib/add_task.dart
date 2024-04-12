@@ -12,8 +12,9 @@ class CreateTaskPage extends StatelessWidget {
           child: Text(
             'Create New Task',
             style: TextStyle(
-              fontWeight: FontWeight.bold, // Make the heading bold
-            ),
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0 // Make the heading bold
+                ),
           ),
         ),
         centerTitle: true,
@@ -36,20 +37,23 @@ class CreateTaskPage extends StatelessWidget {
             const SizedBox(height: 10),
             _buildTextField('Description'),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // task creation logic here
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFF2171),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+            Container(
+              width: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  // task creation logic here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFF2171),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                child: const Text('Add Task',
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
               ),
-              child: const Text('Add Task',
-                  style: TextStyle(fontSize: 16, color: Colors.white)),
             ),
           ],
         ),
