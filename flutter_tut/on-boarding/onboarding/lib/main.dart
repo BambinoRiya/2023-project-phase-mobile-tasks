@@ -8,7 +8,7 @@ import 'package:onboarding/toDo.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: TaskDetail(),
+    home: CreateTaskPage(),
   ));
 }
 
