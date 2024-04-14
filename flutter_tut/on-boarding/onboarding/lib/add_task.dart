@@ -7,8 +7,8 @@ class CreateTaskPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 18),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 18),
           child: Text(
             'Create New Task',
             style: TextStyle(
@@ -67,7 +67,7 @@ class CreateTaskPage extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.pink,
             fontWeight: FontWeight.bold, // Make the title bold
           ),
@@ -84,14 +84,14 @@ class CreateTaskPage extends StatelessWidget {
                     Colors.black.withOpacity(0.1), // Add shadow to the text box
                 spreadRadius: 2,
                 blurRadius: 4,
-                offset: Offset(0, 2), // changes position of shadow
+                offset: const Offset(0, 2), // changes position of shadow
               ),
             ],
           ),
-          child: TextField(
+          child: const TextField(
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.all(15),
+              contentPadding: EdgeInsets.all(15),
             ),
           ),
         ),
@@ -105,7 +105,7 @@ class CreateTaskPage extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.pink,
             fontWeight: FontWeight.bold, // Make the title bold
           ),
@@ -122,7 +122,7 @@ class CreateTaskPage extends StatelessWidget {
                     Colors.black.withOpacity(0.1), // Add shadow to the text box
                 spreadRadius: 2,
                 blurRadius: 4,
-                offset: Offset(0, 2), // changes position of shadow
+                offset: const Offset(0, 2), // changes position of shadow
               ),
             ],
           ),
@@ -134,7 +134,7 @@ class CreateTaskPage extends StatelessWidget {
                 onPressed: () {
                   _selectDate(context);
                 },
-                icon: Icon(Icons.calendar_today, color: Colors.pink),
+                icon: const Icon(Icons.calendar_today, color: Colors.pink),
               ),
             ),
           ),
