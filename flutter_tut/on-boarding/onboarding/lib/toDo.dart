@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:onboarding/add_task.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,7 +9,27 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo List'),
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            size: 35,
+            color:  Color.fromARGB(255, 238, 101, 151),
+          ),
+        ),
+        actions: const [
+          Icon(
+            Icons.more_vert,
+            size: 35,
+          )
+        ],
+        title: const Text(
+          'Todo List',
+          style: TextStyle(fontSize: 25),
+        ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -29,6 +50,7 @@ class HomePage extends StatelessWidget {
                 'Task list',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
             ),
@@ -56,7 +78,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding:  EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -118,7 +140,11 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
                 onPressed: () {
-                  // Add button functionality here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CreateTaskPage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFF2171),
@@ -126,12 +152,12 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 80, vertical: 18),
                 ),
                 child: const Text(
                   'Create task',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                      fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
                 ),
               ),
             ),

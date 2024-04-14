@@ -7,7 +7,7 @@ class TaskDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 238, 101, 151),
+        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -15,20 +15,20 @@ class TaskDetail extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_new,
             size: 35,
-            color: Colors.white,
+            color: Color(0xFFFF2171),
           ),
         ),
         actions: const [
           Icon(
             Icons.more_vert,
             size: 35,
-            color: Colors.white,
+            color: Color(0xFFFF2171),
           )
         ],
         title: const Text(
           'Task Detail',
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+              fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         centerTitle: true,
       ),
@@ -49,7 +49,7 @@ class TaskDetail extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(bottom: 5),
                   padding: const EdgeInsets.only(left: 8),
-                  child: const Text('Title', style: TextStyle(fontSize: 20)),
+                  child: const Text('Title', style: TextStyle(fontSize: 15)),
                 ),
                 TextField(
                   decoration: InputDecoration(
@@ -70,7 +70,7 @@ class TaskDetail extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 5),
                   padding: const EdgeInsets.only(left: 8),
                   child:
-                      const Text("Description", style: TextStyle(fontSize: 20)),
+                      const Text("Description", style: TextStyle(fontSize: 15)),
                 ),
                 TextField(
                   decoration: InputDecoration(
@@ -89,7 +89,7 @@ class TaskDetail extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(bottom: 5, top: 15),
                   padding: const EdgeInsets.only(left: 8),
-                  child: const Text("Due date", style: TextStyle(fontSize: 20)),
+                  child: const Text("Due date", style: TextStyle(fontSize: 15)),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -105,7 +105,7 @@ class TaskDetail extends StatelessWidget {
                     children: [
                       const Text(
                         'Current Date',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 15),
                       ),
                       IconButton(
                         onPressed: () {},
@@ -122,11 +122,17 @@ class TaskDetail extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 60),
-                      backgroundColor: const Color.fromRGBO(241, 138, 238, 1),
+                      backgroundColor: const Color(0xFFFF2171),
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () {},
-                    child: const Text('Save task'),
+                    child: const Text(
+                      'Save task',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],

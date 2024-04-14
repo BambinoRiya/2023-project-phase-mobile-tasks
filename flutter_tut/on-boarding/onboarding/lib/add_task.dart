@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onboarding/task_details.dart';
 
 class CreateTaskPage extends StatelessWidget {
   const CreateTaskPage({Key? key}) : super(key: key);
@@ -59,7 +60,7 @@ class CreateTaskPage extends StatelessWidget {
                         child: const Text(
                           'Main task name',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 238, 101, 151),
                           ),
@@ -94,18 +95,18 @@ class CreateTaskPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 15),
                       Container(
+                        //container that needs row
                         margin: const EdgeInsets.only(bottom: 5),
                         padding: const EdgeInsets.only(left: 8),
                         child: const Text(
                           'Due date',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 238, 101, 151),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15),
                       TextField(
                         decoration: InputDecoration(
                           filled: true,
@@ -129,24 +130,29 @@ class CreateTaskPage extends StatelessWidget {
                                 BorderSide(color: Colors.grey[400]!, width: 1),
                           ),
                           hintText: '',
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              // Add date selection logic here
+                            },
+                            icon: const Icon(Icons.date_range),
+                          ),
                         ),
                         maxLines: null,
                         style: const TextStyle(fontSize: 18),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 15),
                       Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         padding: const EdgeInsets.only(left: 8),
                         child: const Text(
                           'Description',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 238, 101, 151),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15),
                       TextField(
                         decoration: InputDecoration(
                           filled: true,
@@ -179,19 +185,28 @@ class CreateTaskPage extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
-                              vertical: 15,
-                              horizontal: 60,
+                              vertical: 20,
+                              horizontal: 55,
                             ),
-                            backgroundColor: Color.fromARGB(255, 224, 79, 132),
+                            backgroundColor:
+                                const Color.fromARGB(255, 224, 79, 132),
                             foregroundColor: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TaskDetail(),
+                              ),
+                            );
+                          },
                           child: const Text(
                             'Add task',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
