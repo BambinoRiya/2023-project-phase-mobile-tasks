@@ -20,10 +20,7 @@ class WelcomePage extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
+                    Navigator.pushNamed(context, '/toDo');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFF2171),

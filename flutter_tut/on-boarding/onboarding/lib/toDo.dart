@@ -141,11 +141,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 50),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CreateTaskPage()),
-                    );
+                    Navigator.pushNamed(context, '/add_task');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFF2171),

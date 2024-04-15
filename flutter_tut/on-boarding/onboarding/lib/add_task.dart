@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding/task_details.dart';
 
-class CreateTaskPage extends StatelessWidget {
+class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({Key? key}) : super(key: key);
 
+  @override
+  State<CreateTaskPage> createState() => _CreateTaskPageState();
+}
+
+class _CreateTaskPageState extends State<CreateTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 252, 252),
+        backgroundColor: const Color.fromARGB(255, 253, 252, 252),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -193,12 +198,7 @@ class CreateTaskPage extends StatelessWidget {
                             foregroundColor: Colors.white,
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const TaskDetail(),
-                              ),
-                            );
+                            Navigator.pushNamed(context, '/task_detail');
                           },
                           child: const Text(
                             'Add task',
