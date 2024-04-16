@@ -1,14 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:onboarding/task_details.dart';
 
+final _taskNameController = TextEditingController();
+final _dateController = TextEditingController();
+final _descriptionController = TextEditingController();
+
 class CreateTaskPage extends StatefulWidget {
-  const CreateTaskPage({Key? key}) : super(key: key);
+  const CreateTaskPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CreateTaskPage> createState() => _CreateTaskPageState();
 }
 
 class _CreateTaskPageState extends State<CreateTaskPage> {
+  DateTime _selectedDate = DateTime.now();
+  String taskName = "";
+  String description = "";
+  bool valid = false;
+
+  String formatDate(DateTime dateTime) {
+    final formatter = DateFormat('MMM dd, yyyy');
+    return formatter.format(dateTime);
+  }
+
+  void validData() {
+    setState(() {
+      valid = taskName.isNotEmpty && description.isNotEmpty;
+    });
+  }
+
+  void showingDatePicker() async {
+    DateTime now = DateTime.now();
+    DateTime firstDate = DateTime(now.year - 1, now.month, now.day);
+    DateTime lastDate = DateTime(now.year + 1, now.month, now.day);
+    final date = await showDatePicker(
+      context: context,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );
+    if (date != null) {
+      setState(() {
+        _selectedDate = date;
+        _dateController.text = formatDate(date);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _dateController.addListener(() => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +118,13 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         ),
                       ),
                       TextField(
+                        controller: _taskNameController,
+                        onChanged: (value) {
+                          setState(() {
+                            taskName = value;
+                            validData();
+                          });
+                        },
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -113,6 +166,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         ),
                       ),
                       TextField(
+                        controller: _dateController,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -134,11 +188,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                             borderSide:
                                 BorderSide(color: Colors.grey[400]!, width: 1),
                           ),
-                          hintText: '',
+                          hintText: _selectedDate.toString().split(' ')[0],
                           suffixIcon: IconButton(
-                            onPressed: () {
-                              // Add date selection logic here
-                            },
+                            onPressed: showingDatePicker,
                             icon: const Icon(Icons.date_range),
                           ),
                         ),
@@ -159,6 +211,13 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         ),
                       ),
                       TextField(
+                        controller: _descriptionController,
+                        onChanged: (value) {
+                          setState(() {
+                            description = value;
+                            validData();
+                          });
+                        },
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -197,9 +256,11 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                                 const Color.fromARGB(255, 224, 79, 132),
                             foregroundColor: Colors.white,
                           ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/task_detail');
-                          },
+                          onPressed: valid
+                              ? () {
+                                  Navigator.pushNamed(context, '/task_details');
+                                }
+                              : null,
                           child: const Text(
                             'Add task',
                             style: TextStyle(

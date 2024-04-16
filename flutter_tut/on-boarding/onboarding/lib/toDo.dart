@@ -1,8 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding/add_task.dart';
+import 'package:onboarding/cards.dart';
+import 'package:onboarding/models/task_class.dart';
+import 'dart:math';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Task> tasks = [];
+  List<Color> randomColors = [Colors.red, Colors.green, Colors.pink];
+
+  void editTask(Map<String, Object> map, Task task) {
+    setState(() {
+      task.taskName = map['title'] as String;
+      task.description = map['description'] as String;
+      task.dueDate = map['date'] as DateTime;
+    });
+  }
+
+  Color getRandomColor() {
+    return randomColors[Random().nextInt(3)];
+  }
+
+  void addTask(Map<String, Object?> value) {
+    setState(() {
+      tasks.add(
+        Task(
+          taskName: value['title'] as String,
+          description: value['description'] as String,
+          dueDate: value['date'] as DateTime,
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,29 +44,32 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(
             Icons.arrow_back_ios_new,
             size: 35,
-            color: Color.fromARGB(255, 238, 101, 151),
+            color: Color.fromRGBO(238, 101, 151, 1),
           ),
         ),
         actions: const [
           Icon(
             Icons.more_vert,
             size: 35,
-          )
+          ),
         ],
         title: const Text(
           'Todo List',
           style: TextStyle(fontSize: 25),
+          
         ),
         centerTitle: true,
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20), // Add horizontal margins
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,91 +86,20 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Task list',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
               ),
               const SizedBox(height: 10),
-              const Card(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Main Task Text',
-                              style: TextStyle(fontWeight: FontWeight.w300),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Description',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'Date',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          Text(
-                            'Time',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListTile(
-                      title: Text(
-                        'Main Heading 2',
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                      subtitle: Text('Description 2'),
-                      leading: Icon(
-                        Icons.abc_rounded,
-                        color: Colors.pinkAccent,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListTile(
-                      title: Text(
-                        'Main Heading 3',
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                      subtitle: Text('Description 3'),
-                      leading: Icon(
-                        Icons.abc_rounded,
-                        color: Colors.pinkAccent,
-                      ),
-                    ),
-                  ],
-                ),
+              // Map each task to a TaskCard widget
+              Column(
+                children: tasks.map((task) {
+                  return TaskCard(
+                    key: Key(task.taskName),
+                    task: task,
+                    color: getRandomColor(),
+                    editTask: editTask,
+                  );
+                }).toList(),
               ),
               const SizedBox(height: 40),
               Container(
