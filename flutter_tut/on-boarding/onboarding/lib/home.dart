@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:onboarding/toDo.dart';
+// import 'package:onboarding/toDo.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key});

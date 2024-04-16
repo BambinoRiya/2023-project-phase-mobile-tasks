@@ -7,13 +7,14 @@ import 'package:onboarding/task_details.dart';
 import 'package:onboarding/toDo.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: const WelcomePage(),
-    routes: <String, WidgetBuilder>{
-      '/toDo': (BuildContext context) => const HomePage(),
-      '/add_task': (BuildContext context) => const CreateTaskPage(),
-      '/task_detail': (BuildContext context) => const TaskDetail(),
-    },
-  ),
+  runApp(
+    MaterialApp(
+      home: const WelcomePage(),
+      routes: <String, WidgetBuilder>{
+        '/toDo': (BuildContext context) => const HomePage(),
+        '/add_task': (BuildContext context) => const CreateTaskPage(),
+        '/task_detail': (BuildContext context) => const TaskDetail(),
+      },
+    ),
   );
 }

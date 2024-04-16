@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:onboarding/task_details.dart';
+// import 'package:onboarding/task_details.dart';
 
 final _taskNameController = TextEditingController();
 final _dateController = TextEditingController();
@@ -8,8 +8,8 @@ final _descriptionController = TextEditingController();
 
 class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CreateTaskPage> createState() => _CreateTaskPageState();
@@ -26,10 +26,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     return formatter.format(dateTime);
   }
 
-  void validData() {
-    setState(() {
-      valid = taskName.isNotEmpty && description.isNotEmpty;
-    });
+  bool validData() {
+    return taskName != "" && description != "";
   }
 
   void showingDatePicker() async {
@@ -256,11 +254,17 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                                 const Color.fromARGB(255, 224, 79, 132),
                             foregroundColor: Colors.white,
                           ),
-                          onPressed: valid
-                              ? () {
-                                  Navigator.pushNamed(context, '/task_details');
-                                }
-                              : null,
+                          onPressed: () {
+                            if (validData()) {
+                              //getting error
+                              Map<String, Object> data = {
+                                'title': taskName,
+                                'description': description,
+                                'date': _selectedDate,
+                              };
+                              Navigator.pop(context, data);
+                            }
+                          },
                           child: const Text(
                             'Add task',
                             style: TextStyle(
