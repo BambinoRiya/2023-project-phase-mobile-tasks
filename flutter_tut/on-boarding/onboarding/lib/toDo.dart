@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:onboarding/add_task.dart';
 import 'package:onboarding/cards.dart';
 import 'package:onboarding/models/task_class.dart';
 import 'dart:math';
@@ -41,95 +44,110 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            size: 35,
-            color: Color.fromRGBO(238, 101, 151, 1),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 35,
+              color: Color.fromRGBO(238, 101, 151, 1),
+            ),
           ),
-        ),
-        actions: const [
-          Icon(
-            Icons.more_vert,
-            size: 35,
+          actions: const [
+            Icon(
+              Icons.more_vert,
+              size: 35,
+            ),
+          ],
+          title: const Text(
+            'Todo List',
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
-        ],
-        title: const Text(
-          'Todo List',
-          style: TextStyle(fontSize: 25),
-          
+          centerTitle: true,
+          elevation: 0,
         ),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
+        body: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                color: Colors.white,
-                child: Image.asset(
-                  'assets/img/stickman.png',
-                  width: 200,
+              Expanded(
+                flex: 7,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        key: const Key('Task List Pic'),
+                        child: Image.asset('assets/img/stickman.png'),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
+                        child: Text(
+                          'Task List',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          ...tasks.reversed.map(
+                            (task) => TaskCard(
+                              key: Key(task.taskName),
+                              task: task,
+                              color: getRandomColor(),
+                              editTask: editTask,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Task list',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ),
-              const SizedBox(height: 10),
-              // Map each task to a TaskCard widget
-              Column(
-                children: tasks.map((task) {
-                  return TaskCard(
-                    key: Key(task.taskName),
-                    task: task,
-                    color: getRandomColor(),
-                    editTask: editTask,
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 40),
-              Container(
-                alignment: Alignment.bottomCenter,
-                padding: const EdgeInsets.only(bottom: 50),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/add_task');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFF2171),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+              const SizedBox(height: 7),
+              Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: ElevatedButton(
+                      key: const Key('Create task'),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 70,
+                          vertical: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        backgroundColor:
+                            const Color.fromARGB(255, 224, 79, 132),
+                        foregroundColor: Colors.white,
+                      ),
+                      onPressed: () async {
+                        Map<String, Object>? value = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CreateTaskPage(),
+                          ),
+                        );
+                        if (value != null) {
+                          addTask(value);
+                        }
+                      },
+                      child: const Text(
+                        'Create Task',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 80, vertical: 18),
-                  ),
-                  child: const Text(
-                    'Create task',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 18),
-                  ),
-                ),
-              ),
+                  ))
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
