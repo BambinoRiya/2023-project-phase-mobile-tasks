@@ -245,6 +245,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                       const SizedBox(height: 40),
                       Center(
                         child: ElevatedButton(
+                          key: const Key('addTaskButton'),
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                               vertical: 20,

@@ -7,26 +7,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:onboarding/add_task.dart';
 import 'package:onboarding/home.dart';
 
 import 'package:onboarding/main.dart';
 import 'package:onboarding/toDo.dart';
+import 'package:onboarding/add_task.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const WelcomePage());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Test Onboarding Page Navigation ', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: WelcomePage(),
+    ));
+    final  getStartedButton = find.byKey(const Key('getStartedButton'));
+    await tester.tap(getStartedButton);
+ 
+    expect(find.byType(Scaffold), findsOneWidget);
   });
+
+  // testWidgets(description, (widgetTester) => null)
 }

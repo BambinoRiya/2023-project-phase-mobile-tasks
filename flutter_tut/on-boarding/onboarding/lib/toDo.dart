@@ -82,7 +82,11 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Center(
                         key: const Key('Task List Pic'),
-                        child: Image.asset('assets/img/stickman.png'),
+                        child: Image.asset(
+                          'assets/img/stickman.png',
+                          width: 360,
+                          height: 300,
+                        ),
                       ),
                       const Padding(
                         padding: EdgeInsets.fromLTRB(15, 15, 0, 10),

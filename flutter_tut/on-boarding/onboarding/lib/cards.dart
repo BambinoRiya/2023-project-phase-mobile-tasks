@@ -47,11 +47,11 @@ class TaskCard extends StatelessWidget {
         ),
         margin: const EdgeInsets.only(bottom: 15),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+          padding: const EdgeInsets.fromLTRB(18, 18, 0, 18),
           child: ListTile(
-            leading: const Text(
-              "U",
-              style: TextStyle(fontSize: 25),
+            leading: Text(
+              task.taskName.isNotEmpty ? task.taskName[0].toUpperCase() : '',
+              style: const TextStyle(fontSize: 25),
             ),
             title: SizedBox(
               width: 150,
@@ -65,8 +65,11 @@ class TaskCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(formatDate(task.dueDate)),
-                  const SizedBox(width: 10),
+                  Text(
+                    formatDate(task.dueDate),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 25),
                   Container(
                     width: 4,
                     height: 40,

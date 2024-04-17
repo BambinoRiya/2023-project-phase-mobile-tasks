@@ -19,6 +19,7 @@ class WelcomePage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
+                key: const Key('getStartedButton'),
                   onPressed: () {
                     Navigator.pushNamed(context, '/toDo');
                   },
