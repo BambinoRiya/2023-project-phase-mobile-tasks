@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-// import 'package:onboarding/task_details.dart';
+import 'package:onboarding/models/task_class.dart';
 
 final _taskNameController = TextEditingController();
 final _dateController = TextEditingController();
@@ -8,8 +8,8 @@ final _descriptionController = TextEditingController();
 
 class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CreateTaskPage> createState() => _CreateTaskPageState();
@@ -17,9 +17,9 @@ class CreateTaskPage extends StatefulWidget {
 
 class _CreateTaskPageState extends State<CreateTaskPage> {
   DateTime _selectedDate = DateTime.now();
-  String taskName = "";
-  String description = "";
-  bool valid = false;
+  String _taskName = "";
+  String _description = "";
+  TaskStatus _status = TaskStatus.pending;
 
   String formatDate(DateTime dateTime) {
     final formatter = DateFormat('MMM dd, yyyy');
@@ -27,7 +27,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   }
 
   bool validData() {
-    return taskName != "" && description != "";
+    return _taskName != "" && _description != "";
   }
 
   void showingDatePicker() async {
@@ -38,6 +38,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
       context: context,
       firstDate: firstDate,
       lastDate: lastDate,
+      barrierColor: const Color.fromARGB(255, 238, 101, 151),
     );
     if (date != null) {
       setState(() {
@@ -119,7 +120,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         controller: _taskNameController,
                         onChanged: (value) {
                           setState(() {
-                            taskName = value;
+                            _taskName = value;
                             validData();
                           });
                         },
@@ -212,7 +213,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         controller: _descriptionController,
                         onChanged: (value) {
                           setState(() {
-                            description = value;
+                            _description = value;
                             validData();
                           });
                         },
@@ -242,13 +243,48 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         maxLines: null,
                         style: const TextStyle(fontSize: 18),
                       ),
+                      const SizedBox(height: 15),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        padding: const EdgeInsets.only(left: 8),
+                        child: const Text(
+                          'Status',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 238, 101, 151),
+                          ),
+                        ),
+                      ),
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          value: _status,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _status = newValue as TaskStatus;
+                            });
+                          },
+                          items: TaskStatus.values
+                              .map<DropdownMenuItem<TaskStatus>>(
+                                (TaskStatus value) =>
+                                    DropdownMenuItem<TaskStatus>(
+                                  value: value,
+                                  child: Text(
+                                    value.name,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
                       const SizedBox(height: 40),
                       Center(
                         child: ElevatedButton(
                           key: const Key('addTaskButton'),
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
-                              vertical: 20,
+                              vertical: 15,
                               horizontal: 55,
                             ),
                             backgroundColor:
@@ -257,11 +293,11 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                           ),
                           onPressed: () {
                             if (validData()) {
-                              //getting error
                               Map<String, Object> data = {
-                                'title': taskName,
-                                'description': description,
+                                'title': _taskName,
+                                'description': _description,
                                 'date': _selectedDate,
+                                'status': _status,
                               };
                               Navigator.pop(context, data);
                             }

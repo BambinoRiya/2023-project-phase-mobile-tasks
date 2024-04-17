@@ -30,7 +30,7 @@ class WelcomePage extends StatelessWidget {
                           BorderRadius.circular(10.0), // Button border radius
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 80, vertical: 18),
+                        horizontal: 80, vertical: 12),
                   ),
                   child: const Text(
                     'Get Started',

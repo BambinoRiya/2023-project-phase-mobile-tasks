@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:onboarding/add_task.dart';
 import 'package:onboarding/cards.dart';
 import 'package:onboarding/models/task_class.dart';
 import 'dart:math';
+// import 'package:flutter/widgets.dart';
+// import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,28 +15,34 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Task> tasks = [];
-  List<Color> randomColors = [Colors.red, Colors.green, Colors.pink];
+  final List<Color> _randomColors = [Colors.red, Colors.green, Colors.pink];
 
   void editTask(Map<String, Object> map, Task task) {
     setState(() {
       task.taskName = map['title'] as String;
       task.description = map['description'] as String;
       task.dueDate = map['date'] as DateTime;
+      task.status = map['status'] as TaskStatus;
+
+      int index = tasks.indexWhere((t) => t == task);
+      if (index != -1) {
+        tasks[index] = task;
+      }
     });
   }
 
   Color getRandomColor() {
-    return randomColors[Random().nextInt(3)];
+    return _randomColors[Random().nextInt(3)];
   }
 
   void addTask(Map<String, Object?> value) {
     setState(() {
       tasks.add(
         Task(
-          taskName: value['title'] as String,
-          description: value['description'] as String,
-          dueDate: value['date'] as DateTime,
-        ),
+            taskName: value['title'] as String,
+            description: value['description'] as String,
+            dueDate: value['date'] as DateTime,
+            status: value['status'] as TaskStatus),
       );
     });
   }
@@ -104,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                             (task) => TaskCard(
                               key: Key(task.taskName),
                               task: task,
-                              color: getRandomColor(),
+                              color: _randomColors[task.status.index],
                               editTask: editTask,
                             ),
                           ),
@@ -122,8 +128,8 @@ class _HomePageState extends State<HomePage> {
                       key: const Key('Create task'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 70,
-                          vertical: 20,
+                          horizontal: 80,
+                          vertical: 12,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),

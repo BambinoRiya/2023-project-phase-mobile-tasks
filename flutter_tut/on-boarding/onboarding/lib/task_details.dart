@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import 'package:onboarding/models/task_class.dart';
 
 class TaskDetail extends StatefulWidget {
-  const TaskDetail({ super.key,
+  const TaskDetail({
+    super.key,
   });
 
   @override
@@ -10,9 +12,46 @@ class TaskDetail extends StatefulWidget {
 }
 
 class _TaskDetailState extends State<TaskDetail> {
-  // String taskTitle;
+  late DateTime editDate; //remove this late
+  String? editTitle, editDescription;
+  TaskStatus? status;
+
+  void populateFromTask(task) {
+    if (editTitle == null) {
+      editDate = task.dueDate;
+      editTitle = task.taskName;
+      editDescription = task.description;
+      status = task.status;
+    }
+  }
+
+  void showingDatePicker() async {
+    DateTime now = DateTime.now();
+    DateTime firstDate = DateTime(now.year - 1, now.month, now.day);
+    DateTime lastDate = DateTime(now.year + 1, now.month, now.day);
+    final date = await showDatePicker(
+      context: context,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      barrierColor: Color.fromARGB(255, 238, 101, 151),
+    );
+    if (date != null) {
+      setState(() {
+        editDate = date;
+      });
+    }
+  }
+
+  String formatDate(DateTime dateTime) {
+    final formatter = DateFormat('MMM dd, yyyy');
+    return formatter.format(dateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Task task = ModalRoute.of(context)!.settings.arguments as Task;
+    populateFromTask(task);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -60,6 +99,10 @@ class _TaskDetailState extends State<TaskDetail> {
                   child: const Text('Title', style: TextStyle(fontSize: 15)),
                 ),
                 TextField(
+                  onChanged: (value) {
+                    editTitle = value;
+                  },
+                  controller: TextEditingController(text: editTitle),
                   decoration: InputDecoration(
                     fillColor: const Color.fromRGBO(241, 238, 238, 1),
                     filled: true,
@@ -81,6 +124,10 @@ class _TaskDetailState extends State<TaskDetail> {
                       const Text("Description", style: TextStyle(fontSize: 15)),
                 ),
                 TextField(
+                  onChanged: (value) {
+                    editDescription = value;
+                  },
+                  controller: TextEditingController(text: editDescription),
                   decoration: InputDecoration(
                     fillColor: const Color.fromRGBO(241, 238, 238, 1),
                     filled: true,
@@ -111,16 +158,53 @@ class _TaskDetailState extends State<TaskDetail> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Current Date',
+                      Text(
+                        formatDate(editDate),
                         style: TextStyle(fontSize: 15),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showingDatePicker();
+                        },
                         icon: const Icon(Icons.date_range),
                       )
                     ],
                   ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 5),
+                  padding: const EdgeInsets.only(left: 8),
+                  child: const Text(
+                    'Status',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                DropdownButtonFormField<TaskStatus>(
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromRGBO(241, 238, 238, 1),
+                  ),
+                  dropdownColor: const Color.fromRGBO(241, 238, 238, 1),
+                  value: status,
+                  onChanged: (TaskStatus? newValue) {
+                    setState(() {
+                      status = newValue!;
+                    });
+                  },
+                  itemHeight: 50,
+                  items: TaskStatus.values
+                  .map((status) => DropdownMenuItem(
+                    value: status,
+                    child: Text(
+                      status.name.toString().toUpperCase(),
+                    ),
+                    )).toList(),
                 ),
                 const SizedBox(
                   height: 15,
@@ -133,7 +217,15 @@ class _TaskDetailState extends State<TaskDetail> {
                       backgroundColor: const Color(0xFFFF2171),
                       foregroundColor: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Map<String, Object> data = {
+                        'title': editTitle!,
+                        'description': editDescription!,
+                        'date': editDate,
+                        'status': status!,
+                      };
+                      Navigator.pop(context, data);
+                    },
                     child: const Text(
                       'Save task',
                       style: TextStyle(

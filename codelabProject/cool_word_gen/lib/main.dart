@@ -41,7 +41,7 @@ class MyHomePage extends StatelessWidget {
           Text(appState.current.asLowerCase),
           ElevatedButton(
               onPressed: () {},
-              style: ButtonStyle(backgroundColor:),
+              style: ButtonStyle(backgroundColor:const Color.fromRGBO(20, 40 , 40, 9)),
               child: Text(
                 'Press me',
                 style: TextStyle(
