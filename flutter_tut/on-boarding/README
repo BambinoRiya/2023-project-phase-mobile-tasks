@@ -1,0 +1,8 @@
+# TO DO APP
+
+A simple task manager app built with flutter
+
+# FEATURES 
+-Create a task
+-View all tasks including their status, thsat is completed, pending or due
+-Edit exsisting tasks
