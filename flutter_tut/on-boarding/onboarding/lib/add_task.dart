@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:onboarding/models/task_class.dart';
+import 'package:dartz/dartz.dart' as dartz;
 
 final _taskNameController = TextEditingController();
 final _dateController = TextEditingController();
@@ -26,8 +27,11 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     return formatter.format(dateTime);
   }
 
-  bool validData() {
-    return _taskName != "" && _description != "";
+  dartz.Either<String, bool> isValid() {
+    if (_taskName != "" && _description != "") {
+      return dartz.Right(true);
+    }
+    return const dartz.Left("Please fill all fields!");
   }
 
   void showingDatePicker() async {
@@ -121,7 +125,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         onChanged: (value) {
                           setState(() {
                             _taskName = value;
-                            validData();
+                            isValid();
                           });
                         },
                         decoration: InputDecoration(
@@ -214,7 +218,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         onChanged: (value) {
                           setState(() {
                             _description = value;
-                            validData();
+                            isValid();
                           });
                         },
                         decoration: InputDecoration(
@@ -292,7 +296,25 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                             foregroundColor: Colors.white,
                           ),
                           onPressed: () {
-                            if (validData()) {
+                            final validData = isValid();
+
+                            validData.fold((error) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext ctx) => AlertDialog(
+                                  title: const Text("Invalid input!",
+                                      style: TextStyle(color: Colors.red)),
+                                  content: Text(error),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(ctx);
+                                        },
+                                        child: const Text("Close"))
+                                  ],
+                                ),
+                              );
+                            }, (value) {
                               Map<String, Object> data = {
                                 'title': _taskName,
                                 'description': _description,
@@ -300,7 +322,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                                 'status': _status,
                               };
                               Navigator.pop(context, data);
-                            }
+                            });
                           },
                           child: const Text(
                             'Add task',
