@@ -121,6 +121,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         ),
                       ),
                       TextField(
+                        key: const Key('taskTitleField'),
                         controller: _taskNameController,
                         onChanged: (value) {
                           setState(() {
@@ -214,6 +215,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         ),
                       ),
                       TextField(
+                        key: const Key('taskDescription'),
                         controller: _descriptionController,
                         onChanged: (value) {
                           setState(() {
