@@ -12,6 +12,6 @@ class CreateUser implements Usecase<String, Task> {
 
   @override
   Future<Either<Failure, String>> call(Task params) async {
-    return await repo.createTask(params.taskName, params.description, params.status);
+    return await repo.createTask(params.taskName, params.description, params.dueDate);
   }
 }

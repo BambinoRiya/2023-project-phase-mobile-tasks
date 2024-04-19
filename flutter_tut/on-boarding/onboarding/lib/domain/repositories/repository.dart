@@ -5,7 +5,7 @@ import 'package:onboarding/domain/entities/task_class.dart';
 abstract class TaskRepository {
   
   Future<Either<Failure, String>> createTask(String? taskName, 
-  String? description, TaskStatus status);
+  String? description, DateTime status);
 
   // Method to retrieve all tasks
   Future<Either<Failure, List<Task>>> viewAllTasks();
