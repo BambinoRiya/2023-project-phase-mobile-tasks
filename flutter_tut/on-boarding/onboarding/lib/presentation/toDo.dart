@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding/add_task.dart';
-import 'package:onboarding/cards.dart';
+import 'package:onboarding/presentation/add_task.dart';
+import 'package:onboarding/presentation/cards.dart';
 import 'package:onboarding/models/task_class.dart';
 import 'dart:math';
 // import 'package:flutter/widgets.dart';

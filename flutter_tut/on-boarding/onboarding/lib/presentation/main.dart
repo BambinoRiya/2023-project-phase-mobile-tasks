@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding/home.dart';
-import 'package:onboarding/add_task.dart';
-import 'package:onboarding/task_details.dart';
-import 'package:onboarding/toDo.dart';
+import 'package:onboarding/presentation/home.dart';
+import 'package:onboarding/presentation/add_task.dart';
+import 'package:onboarding/presentation/task_details.dart';
+import 'package:onboarding/presentation/toDo.dart';
 
 void main() {
   runApp(

@@ -7,12 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:onboarding/add_task.dart';
-import 'package:onboarding/home.dart';
+import 'package:onboarding/presentation/add_task.dart';
+import 'package:onboarding/presentation/home.dart';
 
-import 'package:onboarding/main.dart';
-import 'package:onboarding/toDo.dart';
-import 'package:onboarding/add_task.dart';
+import 'package:onboarding/presentation/main.dart';
+import 'package:onboarding/presentation/toDo.dart';
+import 'package:onboarding/presentation/add_task.dart';
 
 void main() {
   testWidgets('Test Onboarding Page Navigation ', (WidgetTester tester) async {

@@ -29,7 +29,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
 
   dartz.Either<String, bool> isValid() {
     if (_taskName != "" && _description != "") {
-      return dartz.Right(true);
+      return const dartz.Right(true);
     }
     return const dartz.Left("Please fill all fields!");
   }
@@ -303,7 +303,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                                 context: context,
                                 builder: (BuildContext ctx) => AlertDialog(
                                   title: const Text("Invalid input!",
-                                      style: TextStyle(color: Colors.red)),
+                                      style: TextStyle(color: Colors.pinkAccent)),
                                   content: Text(error),
                                   actions: [
                                     TextButton(
