@@ -3,8 +3,9 @@ import 'package:onboarding/core/error/failure.dart';
 import 'package:onboarding/domain/entities/task_class.dart';
 
 abstract class TaskRepository {
-  // Method to create a new task
-  Future<Either<Failure, String>> createTask(Task task);
+  
+  Future<Either<Failure, String>> createTask(String? taskName, 
+  String? description, TaskStatus status);
 
   // Method to retrieve all tasks
   Future<Either<Failure, List<Task>>> viewAllTasks();
@@ -12,5 +13,5 @@ abstract class TaskRepository {
   // Future<Either<Failure, Task>> getTaskById(String id);
 
   // Method to delete a task
-  Future<Either<Failure, void>> viewDetails(String id);
+  Future<Either<Failure, Task>> viewDetails(String id);
 }
