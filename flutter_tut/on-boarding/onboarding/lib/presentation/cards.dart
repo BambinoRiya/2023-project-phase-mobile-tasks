@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:onboarding/models/task_class.dart';
+import 'package:onboarding/data/models/task_class.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({

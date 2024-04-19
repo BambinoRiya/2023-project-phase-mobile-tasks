@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:onboarding/models/task_class.dart';
+import 'package:onboarding/data/models/task_class.dart';
 import 'package:dartz/dartz.dart' as dartz;
 
 final _taskNameController = TextEditingController();
